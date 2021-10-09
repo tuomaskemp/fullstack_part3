@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
 
+app.use(express.json())
+
 let contacts = [
     { 
       "name": "Arto Hellas", 
@@ -23,6 +25,10 @@ let contacts = [
       "id": 4
     },
 ]
+
+const createNewId = () => {
+    return Math.floor(Math.random() * 1000000)
+}
 
 app.get('/api/persons', (req, res) => {
     res.json(contacts)
@@ -48,6 +54,31 @@ app.delete('/api/persons/:id', (request, response) => {
 
     response.status(204).end()
 })
+
+app.post('/api/persons', (request, response) => {
+    const body = request.body
+  
+    if (!body.name || !body.number) {
+      return response.status(400).json({ 
+        error: 'name or number missing' 
+      })
+    }
+    const contactExists = contacts.find(person => person.name === body.name)
+    if (contactExists) {
+        return response.status(400).json({ 
+            error: 'contact already in phonebook' 
+        })
+    }
+    const person = {
+        name: body.name,
+        number: body.number,
+        id: createNewId(),
+    }
+  
+    contacts = contacts.concat(person)
+  
+    response.json(person)
+  })
 
 const PORT = 3001
 app.listen(PORT, () => {
