@@ -41,7 +41,7 @@ const createNewId = () => {
 
 app.get('/api/persons', (req, res) => {
     Contact.find({}).then(result => {
-      res.json(contacts)
+      res.json(result)
     })
 })
   
@@ -56,7 +56,7 @@ app.get('/api/persons/:id', (request, response) => {
 })
 
 app.delete('/api/persons/:id', (request, response) => {
-    Contact.deleteOne(req.params.id).then(person => {
+    Contact.deleteOne(request.params.id).then(person => {
       response.status(204).end()
     })
 })
