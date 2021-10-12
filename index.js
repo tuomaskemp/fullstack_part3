@@ -75,10 +75,10 @@ app.post('/api/persons', (request, response) => {
             error: 'contact already in phonebook' 
         })
     } */
-    const person = {
+    const person = new Contact({
         name: body.name,
         number: body.number
-    }
+    })
   
     person.save().then(savedContact => {
       response.json(savedContact)
