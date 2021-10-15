@@ -49,16 +49,22 @@ app.get('/info', (req, res) => {
     res.send(`Phonebook has info for ${contacts.length} people <br> ${new Date}`)
 })
 
-app.get('/api/persons/:id', (request, response) => {
+app.get('/api/persons/:id', (request, response, next) => {
     Contact.findById(request.params.id).then(person => {
-      response.json(person)
+      if (person) {
+        response.json(person)
+      } else {
+        response.status(404).end()
+      }
     })
+    .catch(error => next(error))
 })
 
-app.delete('/api/persons/:id', (request, response) => {
-    Contact.deleteOne(request.params.id).then(person => {
+app.delete('/api/persons/:id', (request, response, next) => {
+    Contact.findByIdAndRemove(request.params.id).then(res => {
       response.status(204).end()
     })
+    .catch(error => next(error))
 })
 
 app.post('/api/persons', (request, response) => {
