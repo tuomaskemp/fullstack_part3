@@ -1,7 +1,7 @@
-POST http://localhost:3001/api/persons/
+POST https://murmuring-mountain-11390.herokuapp.com/api/persons/
 Content-Type: application/json
 
 {
-    "name": "Tuom",
+    "name": "Tu",
     "number": "0401"
 }
