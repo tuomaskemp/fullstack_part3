@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
 
 if (process.argv.length<3) {
-  console.log('give password as argument')
-  process.exit(1)
+    console.log('give password as argument')
+    process.exit(1)
 }
 
 const password = process.argv[2]
@@ -28,12 +28,12 @@ const contact = new Contact({
 if(!process.argv[3] && !process.argv[4]){
     Contact.find({}).then(result => {
         result.forEach(person => {
-          console.log(person)
+            console.log(person)
         })
         mongoose.connection.close()
-      })
+    })
 } else {
-    contact.save().then(response => {
+    contact.save().then(() => {
         console.log(`added ${contact.name} number ${contact.number} to phonebook`)
         mongoose.connection.close()
     })
