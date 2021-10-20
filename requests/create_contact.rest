@@ -1,7 +1,7 @@
-POST https://murmuring-mountain-11390.herokuapp.com/api/persons
+POST http://localhost:3001/api/persons/
 Content-Type: application/json
 
 {
-    "name": "Mikko Mallikas",
-    "number": "0401234567"
+    "name": "Tuom",
+    "number": "0401"
 }
